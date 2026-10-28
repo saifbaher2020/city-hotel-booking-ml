@@ -111,8 +111,8 @@ assert set(audit["Feature"]) == set(
 
 assert len(audit) == 31
 
-assert len(feature_lists["regression"]) == 20
-assert len(feature_lists["classification"]) == 20
+assert len(feature_lists["regression"]) == 19
+assert len(feature_lists["classification"]) == 19
 assert len(feature_lists["clustering"]) == 10
 
 assert "ADR" not in feature_lists["regression"]
