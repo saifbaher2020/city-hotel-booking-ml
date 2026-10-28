@@ -1,0 +1,32 @@
+Feature,EmptyCells,LiteralNULL,LiteralNA,TotalFlagged,FlaggedPercentage,Interpretation
+Company,0,75641,0,75641,95.34980461363924,NULL may represent no associated company. Excluded from selected model features.
+Agent,0,8131,0,8131,10.249590318920964,NULL may represent no associated agent. Excluded from selected model features.
+Country,0,24,0,24,0.030253371990419768,Country is unspecified (literal NULL). Categorical imputation is applied when modeling.
+Children,0,0,4,4,0.005042228665069961,Child count is unspecified (literal NA). Numerical imputation is applied when modeling.
+ArrivalDateWeekNumber,0,0,0,0,0.0,No flagged values identified.
+ArrivalDateMonth,0,0,0,0,0.0,No flagged values identified.
+IsCanceled,0,0,0,0,0.0,No flagged values identified.
+StaysInWeekendNights,0,0,0,0,0.0,No flagged values identified.
+ArrivalDateDayOfMonth,0,0,0,0,0.0,No flagged values identified.
+Adults,0,0,0,0,0.0,No flagged values identified.
+StaysInWeekNights,0,0,0,0,0.0,No flagged values identified.
+Babies,0,0,0,0,0.0,No flagged values identified.
+Meal,0,0,0,0,0.0,No flagged values identified.
+LeadTime,0,0,0,0,0.0,No flagged values identified.
+ArrivalDateYear,0,0,0,0,0.0,No flagged values identified.
+DistributionChannel,0,0,0,0,0.0,No flagged values identified.
+MarketSegment,0,0,0,0,0.0,No flagged values identified.
+PreviousBookingsNotCanceled,0,0,0,0,0.0,No flagged values identified.
+IsRepeatedGuest,0,0,0,0,0.0,No flagged values identified.
+ReservedRoomType,0,0,0,0,0.0,No flagged values identified.
+AssignedRoomType,0,0,0,0,0.0,No flagged values identified.
+BookingChanges,0,0,0,0,0.0,No flagged values identified.
+PreviousCancellations,0,0,0,0,0.0,No flagged values identified.
+DepositType,0,0,0,0,0.0,No flagged values identified.
+DaysInWaitingList,0,0,0,0,0.0,No flagged values identified.
+CustomerType,0,0,0,0,0.0,No flagged values identified.
+ADR,0,0,0,0,0.0,No flagged values identified.
+RequiredCarParkingSpaces,0,0,0,0,0.0,No flagged values identified.
+TotalOfSpecialRequests,0,0,0,0,0.0,No flagged values identified.
+ReservationStatus,0,0,0,0,0.0,No flagged values identified.
+ReservationStatusDate,0,0,0,0,0.0,No flagged values identified.

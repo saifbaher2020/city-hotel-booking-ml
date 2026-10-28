@@ -1,0 +1,5 @@
+Feature,EmptyCells,LiteralNULL,LiteralNA,TotalFlagged,FlaggedPercentage,Interpretation
+Company,0,75641,0,75641,95.34980461363924,NULL may represent no associated company. Excluded from selected model features.
+Agent,0,8131,0,8131,10.249590318920964,NULL may represent no associated agent. Excluded from selected model features.
+Country,0,24,0,24,0.030253371990419768,Country is unspecified (literal NULL). Categorical imputation is applied when modeling.
+Children,0,0,4,4,0.005042228665069961,Child count is unspecified (literal NA). Numerical imputation is applied when modeling.
