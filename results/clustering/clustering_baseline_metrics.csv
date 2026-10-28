@@ -1,0 +1,2 @@
+Algorithm,K,TrainingRows,PreparedFeatures,SilhouetteSampleSize,SilhouetteScore,DaviesBouldinIndex,Inertia
+MiniBatchKMeans,3,56664,30,2000,0.17328683214787868,1.636748327028642,350030.24665340467

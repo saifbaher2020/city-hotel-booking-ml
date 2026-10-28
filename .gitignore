@@ -1,0 +1,30 @@
+
+# Python virtual environment
+.venv/
+venv/
+
+# Python temporary files
+__pycache__/
+*.pyc
+*.pyo
+
+# Python testing cache
+.pytest_cache/
+
+# VS Code local settings
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Generated ML outputs
+outputs/
+
+# Saved machine learning models
+*.joblib
+*.pkl
+
+# Temporary files
+*.tmp
+*.log
