@@ -23,7 +23,7 @@ feature_audit_path = (
 )
 
 missing_audit_path = (
-    audit_folder / "verified_missing_values.csv"
+    audit_folder / "missing_value_semantic_audit.csv"
 )
 
 # ----------------------------------------------------------
@@ -36,7 +36,7 @@ missing = pd.read_csv(missing_audit_path)
 missing_counts = dict(
     zip(
         missing["Feature"],
-        missing["TotalMissing"]
+       missing["TotalFlagged"]
     )
 )
 

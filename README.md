@@ -347,6 +347,7 @@ python src/clustering/visualize_clustering.py
 ### Step 6 — Run additional verification and visualizations
 
 ```powershell
+python src/data/audit_missing_values.py
 python src/data/verify_feature_leakage.py
 python src/preprocessing/visualize_encoding.py
 python src/preprocessing/visualize_pipelines.py
@@ -392,6 +393,7 @@ python src/clustering/visualize_clustering.py
 ### Verify feature selection
 
 ```powershell
+python src/data/audit_missing_values.py
 python src/data/verify_feature_leakage.py
 ```
 
