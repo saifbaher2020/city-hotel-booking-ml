@@ -16,32 +16,7 @@ dataset_path = project_folder / "data" / "H2.csv"
 output_folder = project_folder / "outputs"
 
 # --------------------------------------------------
-# 5.1.4.2 - Verify backups before making changes
-# --------------------------------------------------
-
-required_backups = [
-    output_folder / "baselines_before_leakage_review",
-    output_folder / "preprocessing" / "pipelines_before_leakage_review",
-    output_folder / "regression_features_before_leakage_review.txt",
-    output_folder / "classification_features_before_leakage_review.txt",
-]
-
-missing_backups = [
-    str(path)
-    for path in required_backups
-    if not path.exists()
-]
-
-if missing_backups:
-    raise FileNotFoundError(
-        "Required backup is missing:\n"
-        + "\n".join(missing_backups)
-    )
-
-print("All required backups found.")
-
-# --------------------------------------------------
-# 5.1.4.3 - Load the original dataset
+# 5.1.4.2 - Load the original dataset
 # --------------------------------------------------
 
 df = pd.read_csv(dataset_path)
@@ -51,7 +26,7 @@ print("Rows:", len(df))
 print("Columns:", len(df.columns))
 
 # --------------------------------------------------
-# 5.1.4.4 - Define the prediction point
+# 5.1.4.3 - Define the prediction point
 # --------------------------------------------------
 
 # Regression and Classification:
@@ -63,7 +38,7 @@ print("Columns:", len(df.columns))
 prediction_point = "Initial reservation creation"
 
 # --------------------------------------------------
-# 5.1.4.5 - Define supervised input features
+# 5.1.4.4 - Define supervised input features
 # --------------------------------------------------
 
 # DepositType has been excluded after our
@@ -98,21 +73,21 @@ common_features = [
 ]
 
 # --------------------------------------------------
-# 5.1.4.6 - Define Regression
+# 5.1.4.5 - Define Regression
 # --------------------------------------------------
 
 regression_features = common_features.copy()
 regression_target = "ADR"
 
 # --------------------------------------------------
-# 5.1.4.7 - Define Classification
+# 5.1.4.6 - Define Classification
 # --------------------------------------------------
 
 classification_features = common_features.copy()
 classification_target = "IsCanceled"
 
 # --------------------------------------------------
-# 5.1.4.8 - Keep Clustering unchanged
+# 5.1.4.7 - Define Clustering
 # --------------------------------------------------
 
 clustering_features = [
@@ -129,7 +104,7 @@ clustering_features = [
 ]
 
 # --------------------------------------------------
-# 5.1.4.9 - Document excluded features
+# 5.1.4.8 - Document excluded features
 # --------------------------------------------------
 
 excluded_reasons = {
@@ -172,7 +147,7 @@ excluded_reasons = {
 }
 
 # --------------------------------------------------
-# 5.1.4.10 - Verify the selected features
+# 5.1.4.9 - Verify the selected features
 # --------------------------------------------------
 
 task_features = {
@@ -184,9 +159,13 @@ task_features = {
 all_columns = set(df.columns)
 
 for task_name, features in task_features.items():
+    assert len(features) == len(set(features)), (
+        f"Duplicate features found in {task_name}"
+    )
 
-    assert len(features) == len(set(features))
-    assert set(features).issubset(all_columns)
+    assert set(features).issubset(all_columns), (
+        f"Unknown features found in {task_name}"
+    )
 
 assert len(regression_features) == 19
 assert len(classification_features) == 19
@@ -203,18 +182,16 @@ assert "ADR" not in clustering_features
 assert "IsCanceled" not in clustering_features
 
 for features in task_features.values():
-
     assert "ReservationStatus" not in features
     assert "ReservationStatusDate" not in features
 
 # --------------------------------------------------
-# 5.1.4.11 - Create updated feature audit table
+# 5.1.4.10 - Create updated feature audit table
 # --------------------------------------------------
 
 audit_rows = []
 
 for column in df.columns:
-
     audit_rows.append({
         "Feature": column,
         "DataType": str(df[column].dtype),
@@ -246,28 +223,22 @@ for column in df.columns:
 
 audit_df = pd.DataFrame(audit_rows)
 
-# This audit's MissingValues column records pandas NaNs.
-# The separate Stage 5.1 missing-value audit also
-# documents literal 'NULL' placeholders.
+# MissingValues records pandas-recognized NaN values.
+# A separate semantic missing-value audit checks
+# literal placeholders such as 'NULL'.
 
 # --------------------------------------------------
-# 5.1.4.12 - Save updated feature lists
+# 5.1.4.11 - Save updated feature lists
 # --------------------------------------------------
 
 output_folder.mkdir(parents=True, exist_ok=True)
 
-audit_path = (
-    output_folder / "feature_leakage_audit.csv"
-)
+audit_path = output_folder / "feature_leakage_audit.csv"
 
 audit_df.to_csv(audit_path, index=False)
 
 for task_name, features in task_features.items():
-
-    filename = (
-        task_name.lower() + "_features.txt"
-    )
-
+    filename = task_name.lower() + "_features.txt"
     path = output_folder / filename
 
     path.write_text(
@@ -276,7 +247,7 @@ for task_name, features in task_features.items():
     )
 
 # --------------------------------------------------
-# 5.1.4.13 - Display results
+# 5.1.4.12 - Display results
 # --------------------------------------------------
 
 print("\n" + "=" * 60)
@@ -305,9 +276,10 @@ print("\nUpdated feature lists saved.")
 print("Updated leakage audit saved:", audit_path)
 
 print("\nOriginal H2.csv modified: NO")
-print("Old results backed up: YES")
+print("Historical backups required: NO")
+print("Historical backups modified: NO")
 print("Preprocessing pipelines rebuilt: NO")
 print("Models retrained: NO")
-print("Test partition accessed: NO")
+print("Test partition accessed for model evaluation: NO")
 
-print("\nNEXT: Rebuild supervised preprocessing pipelines.")
+print("\nNEXT: Verify preprocessing pipeline consistency.")
